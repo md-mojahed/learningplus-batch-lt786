@@ -23,14 +23,25 @@
                         'email' => $email,
                         'age' => $age,
                         'mobile' => $mobile,
-                        'password' => $password
+                        'password' => sha1($password)
                     ];
 
-                    array_push($users, $userArray);
-                    $jsonData = json_encode($users);
-                    file_put_contents('files/users.json', $jsonData);
+                    $userExists = array_filter(
+                        $users,
+                        function ($user) use ($email) {
+                            return $user['email'] == $email;
+                        }
+                    );
 
-                    echo "<p class='alert alert-success'>Successfully Added!</p>";
+                    if (count($userExists) > 0) {
+                        echo "<p class='alert alert-danger'>User already exists!</p>";
+                    } else {
+                        array_push($users, $userArray);
+                        $jsonData = json_encode($users);
+                        file_put_contents('files/users.json', $jsonData);
+
+                        echo "<p class='alert alert-success'>Successfully Added!</p>";
+                    }
                 }
             ?>
             <form class="form" action="signup.php" method="post">
