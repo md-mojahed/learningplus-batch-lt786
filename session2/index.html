@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>CSS</title>
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        <script type="text/javascript" src="assets/js/jquery.js"></script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <button type="button" class="btn btn-success" id="start">Start</button>
+                <button type="button" class="btn" id="clock">0</button>
+                <button type="button" class="btn btn-primary" id="stop">Stop</button>
+                <button type="button" class="btn btn-warning" id="reset">Reset</button>
+            </div>
+        </div>
+        <script>
+            window.clockInterval = null;
+
+            $('#start').click(function(){
+                if (window.clockInterval == null) {
+                    window.clockInterval = setInterval(function(){
+                        let newCounter = Number($('#clock').text())+1;
+                        $('#clock').text(newCounter);
+                    }, 1);
+                }
+            });
+
+            $('#stop').click(function(){
+                clearInterval(window.clockInterval);
+                window.clockInterval = null;
+            });
+
+            $('#reset').click(function(){
+                $('#clock').text(0);
+            });
+
+            // function start() {
+            //     let clock = document.getElementById('clock');
+            //
+            //     if (window.clockInterval == null) {
+            //         window.clockInterval = setInterval(function(){
+            //             clock.innerText = Number(clock.innerText)+1;
+            //         }, 1)
+            //     }
+            // }
+            //
+            // function stop() {
+            //     let clock = document.getElementById('clock');
+            //     clearInterval(window.clockInterval);
+            //     window.clockInterval = null;
+            // }
+            //
+            // function reset() {
+            //     let clock = document.getElementById('clock');
+            //     clock.innerText = 0;
+            // }
+        </script>
+    </body>
+</html>
