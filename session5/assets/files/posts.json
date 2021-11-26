@@ -1,0 +1,9 @@
+[
+    {
+        "title" : "Post Title",
+        "post" : "Post Decription...",
+        "created_at" : "2021-11-26 13:12:10",
+        "image" : "http://placekitten.com/150/150",
+        "posted_by" : 1
+    }
+]
