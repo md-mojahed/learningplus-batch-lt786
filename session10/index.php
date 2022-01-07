@@ -120,4 +120,77 @@ $categories = getCategories();
        </div>
    </div>
 </div>
+<div class="w-100 modal p-2" style="background:rgba(0,0,0,0.3);"
+  id="create-story">
+   <div class="text-right">
+     <span class="close-form btn btn-outline-danger btn-sm" style="font-size:15px;">&#x274C;</span>
+            <script>
+                $(document).ready(function(){
+                    $(".close-form").click(function(){
+                        $("#create-story").modal("toggle");
+                    });
+                });
+            </script>
+    </div>
+   <div class="bg-light w-50 rounded p-2 text-center" style="margin:auto;height:40vw">
+       <form class="form" action="api.google.com" method="post" id="story-form">
+           <div class="form-group">
+               <center>Create Post</center>
+           </div>
+           <div class="form-group pl-5 pr-5">
+               <input class="form-control" required type="text" id="title" placeholder="Title...">
+           </div>
+           <div class="form-group pl-5 pr-5">
+               <select class="form-control" required id="category">
+                   <?php foreach ($categories as $category) { ?>
+                       <option value="<?= $category['id'] ?>"><?= ucfirst($category['name']) ?></option>
+                   <?php } ?>
+               </select>
+           </div>
+           <div class="form-group">
+               <textarea id="description" required rows="8" cols="57" placeholder="Description.."></textarea>
+           </div>
+           <div class="form-group">
+               <center>
+                   <button type="submit" class="btn btn-success">Create</button>
+               </center>
+           </div>
+       </form>
+       <script>
+           $(document).ready(function(){
+               $('#story-form').submit(function(event) {
+                   event.preventDefault();
+                   let title = $('#title').val();
+                   let category = $('#category').val();
+                   let description = $('#description').val();
+
+                   $.ajax({
+                       type : 'POST',
+                       url : 'request.php',
+                       data : {
+                           title, category, description, url : '/store-post'
+                       },
+                       success : function(response) {
+                           console.log(response);
+                           if (response.status == 'success') {
+                               swal({
+                                   title : 'Successfull',
+                                   icon : 'success'
+                               });
+
+                               window.location.reload();
+                           } else {
+                               swal({
+                                   title : 'Error',
+                                   text : response.message,
+                                   icon : 'error'
+                               });
+                           }
+                       }
+                   });
+               });
+           });
+       </script>
+   </div>
+</div>
 <?php include('includes/footer.php'); ?>
