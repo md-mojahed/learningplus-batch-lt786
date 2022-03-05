@@ -1,0 +1,6 @@
+{
+    "require": {
+        "league/climate": "^3.8",
+        "intervention/image": "^2.7"
+    }
+}
